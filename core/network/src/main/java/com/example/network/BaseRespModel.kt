@@ -5,7 +5,6 @@ class BaseRespModel<T>(
 ):SuperBaseModel()
 
 open class SuperBaseModel (
-    val success:Boolean = false,
-    val errorMessage: String = "",
+    val errorMsg: String = "",
     val errorCode: Int = -1,
 )

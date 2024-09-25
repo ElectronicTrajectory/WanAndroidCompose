@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">WanAndroidCompose</string>
+    <string name="home_screen">首页</string>
+    <string name="qa_screen">问答</string>
+    <string name="system_screen">体系</string>
+    <string name="mine_screen">我的</string>
+    <string name="favorite_screen">收藏</string>
+
+
+
+
+
 </resources>

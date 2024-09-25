@@ -1,8 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt)
-    kotlin("kapt")
+    alias(libs.plugins.wanandroid.android.compose.application)
 }
 
 android {
@@ -62,6 +59,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.common.ktx)
+    implementation(libs.compose.material.icons.extended)
+
+    implementation(libs.hilt.navigation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,6 +73,4 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:common"))
     implementation(libs.hilt)
-    implementation(libs.hilt.compiler)
-
 }

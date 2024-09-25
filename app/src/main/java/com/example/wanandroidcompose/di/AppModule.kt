@@ -1,6 +1,8 @@
 package com.example.wanandroidcompose.di
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import com.example.network.Navigator
 import dagger.Module
 import dagger.Provides
@@ -17,6 +19,7 @@ object AppModule {
     fun provideNavigator(context: Context): Navigator {
         return NavigatorImpl(context)
     }
+
 }
 
 class NavigatorImpl(private val context: Context) : Navigator {
