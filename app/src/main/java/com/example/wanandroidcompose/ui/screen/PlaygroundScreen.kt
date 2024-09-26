@@ -17,11 +17,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.wanandroidcompose.data.entity.asArticle
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.article.Article
-import com.example.wanandroidcompose.ui.viewmodel.HomeViewModel
+import com.example.wanandroidcompose.ui.viewmodel.PlaygroundViewModel
 
 @Composable
-fun HomeScreen(navigate: (String) -> Unit) {
-    val viewmodel: HomeViewModel = hiltViewModel()
+fun PlaygroundScreen(navigate:(String)->Unit){
+    val viewmodel: PlaygroundViewModel = hiltViewModel()
     val data by viewmodel.data.collectAsState()
     val padding = LocalInnerPadding.current
     LaunchedEffect(Unit) {
@@ -40,7 +40,6 @@ fun HomeScreen(navigate: (String) -> Unit) {
                 }
                 Article(modifier = Modifier, article = article.asArticle())
                 Spacer(modifier = Modifier.height(12.dp))
-
             }
         }
     }

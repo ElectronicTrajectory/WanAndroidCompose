@@ -1,9 +1,7 @@
 package com.example.wanandroidcompose.di
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import com.example.network.Navigator
+import com.example.wanandroidcompose.network.Navigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

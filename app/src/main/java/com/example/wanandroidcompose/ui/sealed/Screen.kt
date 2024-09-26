@@ -11,4 +11,6 @@ sealed class Screen(
     object SystemScreen : Screen(R.string.system_screen, "system_screen")
     object MineScreen : Screen(R.string.mine_screen, "mine_screen")
     object FavoriteScreen : Screen(R.string.favorite_screen, "favorite_screen")
+    object PlaygroundScreen : Screen(R.string.playground_screen, "playground_screen")
+
 }

@@ -1,5 +1,8 @@
 plugins {
-    alias(libs.plugins.wanandroid.android.compose.application)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -58,9 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.common.ktx)
-    implementation(libs.compose.material.icons.extended)
-
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.navigation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -69,8 +70,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(project(":core:network"))
-    implementation(project(":core:data"))
-    implementation(project(":core:common"))
+
+    implementation(libs.material3)//基础组件库
+    implementation(libs.compose.material.icons.extended)//图标库
+    implementation(libs.blankj)//工具库
+    implementation(libs.coil.compose) //图片加载
+    implementation(libs.accompanist.systemuicontroller)//系统栏颜色
+    implementation(libs.androidx.core.splashscreen)//闪屏页
+    implementation(libs.bundles.retrofit)//网络请求
     implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }

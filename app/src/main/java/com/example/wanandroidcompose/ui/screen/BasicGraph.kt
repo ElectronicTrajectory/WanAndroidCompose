@@ -32,6 +32,11 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
             navController.navigate(it)
         }
     }
+    composable(Screen.PlaygroundScreen.route) {
+        PlaygroundScreen {
+            navController.navigate(it)
+        }
+    }
 
 
 }
