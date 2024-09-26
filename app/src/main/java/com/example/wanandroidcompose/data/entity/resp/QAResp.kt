@@ -1,9 +1,8 @@
-package com.example.wanandroidcompose.data.entity
+package com.example.wanandroidcompose.data.entity.resp
 
 import com.example.wanandroidcompose.data.model.Article
 
-
-data class UserArticleResp(
+data class QAResp(
     val curPage: Int? = 0,
     val datas: List<Data>? = listOf(),
     val offset: Int? = 0,
@@ -11,7 +10,7 @@ data class UserArticleResp(
     val pageCount: Int? = 0,
     val size: Int? = 0,
     val total: Int? = 0
-) {
+){
     data class Data(
         val adminAdd: Boolean? = null,
         val apkLink: String? = null,
@@ -42,16 +41,21 @@ data class UserArticleResp(
         val shareUser: String? = null,
         val superChapterId: Int? = null,
         val superChapterName: String? = null,
-        val tags: List<Any?>? = null,
+        val tags: List<QaTag?>? = null,
         val title: String? = null,
         val type: Int? = null,
         val userId: Int? = null,
         val visible: Int? = null,
         val zan: Int? = null
     )
+
+    data class QaTag(
+        val name: String? = null,
+        val url: String? = null
+    )
 }
 
-fun UserArticleResp.Data.asArticle(): Article {
+fun QAResp.Data.asArticle(): Article {
     var author = ""
     if (this.shareUser.isNullOrBlank().not()){
         author = this.shareUser!!

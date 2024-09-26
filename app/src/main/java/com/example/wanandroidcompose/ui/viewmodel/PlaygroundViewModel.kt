@@ -2,9 +2,7 @@ package com.example.wanandroidcompose.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.wanandroidcompose.data.entity.HomeArticleResp
-import com.example.wanandroidcompose.data.entity.UserArticleResp
-import com.example.wanandroidcompose.data.repository.HomeRepository
+import com.example.wanandroidcompose.data.entity.resp.UserArticleResp
 import com.example.wanandroidcompose.data.repository.PlaygroundRepository
 import com.example.wanandroidcompose.network.handleResult
 import dagger.hilt.android.lifecycle.HiltViewModel

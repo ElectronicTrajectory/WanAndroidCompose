@@ -7,6 +7,14 @@ import com.example.wanandroidcompose.ui.sealed.Screen
 
 
 fun NavGraphBuilder.addGraph(navController: NavHostController) {
+
+    composable(Screen.LoginScreen.route) {
+        LoginScreen {
+            navController.popBackStack()
+        }
+    }
+
+
     composable(Screen.HomeScreen.route) {
         HomeScreen {
             navController.navigate(it)
@@ -38,5 +46,43 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
         }
     }
 
+
+
+
+    composable(Screen.RankScreen.route) {
+        RankScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.ShareScreen.route) {
+        ShareScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.FavoriteScreen.route) {
+        FavoriteScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.BookmarkScreen.route) {
+        BookmarkScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.HistoryScreen.route) {
+        HistoryScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.AboutScreen.route) {
+        AboutScreen {
+            navController.navigate(it)
+        }
+    }
+    composable(Screen.SettingScreen.route) {
+        SettingScreen {
+            navController.navigate(it)
+        }
+    }
 
 }

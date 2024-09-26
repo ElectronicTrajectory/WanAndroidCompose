@@ -1,14 +1,15 @@
 package com.example.wanandroidcompose.network
 
+import com.example.wanandroidcompose.common.UserInfoUtils
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-class WanInterceptor:Interceptor {
+class WanInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest: Request = chain.request()
 
-        val token = "UserInfoUtils.getUserToken()"
+        val token = UserInfoUtils.getUserToken()
         //给请求头携带上token
         val requestBuilder: Request.Builder = originalRequest.newBuilder()
             .header("Authorization", token)
@@ -17,9 +18,12 @@ class WanInterceptor:Interceptor {
         val response = chain.proceed(newRequest)
 
         //保存返回头携带的token
-        if (response.headers("X-Auth-Token").isNullOrEmpty().not()){
-            response.header("X-Auth-Token")
+        response.header("X-Auth-Token").let {
+            if (it.isNullOrBlank().not()) {
+                UserInfoUtils.saveUserToken(it!!)
+            }
         }
+
 
         return response
     }

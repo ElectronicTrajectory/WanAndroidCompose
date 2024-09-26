@@ -1,6 +1,6 @@
 package com.example.wanandroidcompose.ui.screen
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.wanandroidcompose.data.entity.asArticle
+import com.example.wanandroidcompose.data.entity.resp.asArticle
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.article.Article
 import com.example.wanandroidcompose.ui.viewmodel.HomeViewModel
@@ -27,12 +27,11 @@ fun HomeScreen(navigate: (String) -> Unit) {
     LaunchedEffect(Unit) {
         viewmodel.getArticleList(0)
     }
-    Box(
+    Column(
         Modifier
             .fillMaxSize()
             .padding(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding())
     ) {
-
         LazyColumn(Modifier.padding(horizontal = 12.dp)) {
             itemsIndexed(data?.datas ?: emptyList()) { index, article ->
                 if (index == 0) {
