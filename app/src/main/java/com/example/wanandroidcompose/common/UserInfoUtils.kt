@@ -8,6 +8,7 @@ object UserInfoUtils {
     private const val USER_ID = "userId"
     private const val USER_TOKEN = "userToken"
     private const val USER_AVATAR = "userAvatar"
+    private const val USER_COOKIE = "userCookie"
 
 
     fun clearInfo() {
@@ -48,6 +49,14 @@ object UserInfoUtils {
 
     fun getUserAvatar(): String {
         return SPUtils.getInstance(TAG).getString(USER_AVATAR)
+    }
+
+    fun saveUserCookie(cookie: String) {
+        SPUtils.getInstance(TAG).put(USER_COOKIE, cookie)
+    }
+
+    fun getUserCookie(): String {
+        return SPUtils.getInstance(TAG).getString(USER_COOKIE)
     }
 
 }

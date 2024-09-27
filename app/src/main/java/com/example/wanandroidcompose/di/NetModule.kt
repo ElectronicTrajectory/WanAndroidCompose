@@ -1,6 +1,7 @@
 package com.example.wanandroidcompose.di
 
 import com.example.wanandroidcompose.network.ApiService
+import com.example.wanandroidcompose.network.WanCookieJar
 import com.example.wanandroidcompose.network.WanInterceptor
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,7 @@ object NetModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .cookieJar(WanCookieJar())
             .addInterceptor(WanInterceptor())
             .build()
     }
