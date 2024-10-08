@@ -22,19 +22,23 @@ import com.example.wanandroidcompose.common.clickableWithoutRipple
 
 @Composable
 fun Toolbar(
+    modifier: Modifier = Modifier,
     title: String,
-    contentColor: Color = Color.Black,
-    backgroundColor: Color = Color.White,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
+    backgroundColor: Color = MaterialTheme.colorScheme.secondaryContainer,
     showDividerLine: Boolean = true,
     titleSize: TextUnit? = null,
     onBack: (() -> Unit)? = null,
     extraFunction: Pair<ImageVector, () -> Unit>? = null
 ) {
-    Box {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .background(backgroundColor)
+    ) {
         Box(
-            Modifier
+            modifier
                 .fillMaxWidth()
-                .background(backgroundColor)
                 .padding(vertical = 12.dp, horizontal = 12.dp)
         ) {
             onBack?.let {

@@ -1,5 +1,7 @@
 package com.example.wanandroidcompose.data.entity.resp
 
+import com.example.wanandroidcompose.data.model.Article
+
 
 data class CollectArticleResp(
     val curPage: Int? = 0,
@@ -27,6 +29,14 @@ data class CollectArticleResp(
         val userId: Int? = null,
         val visible: Int? = null,
         val zan: Int? = null
+    )
+}
+fun CollectArticleResp.Data.asArticle(): Article {
+    return Article(
+        this.author?:"",
+        this.title?:"",
+        this.niceDate?:"",
+        this.chapterName?:""
     )
 }
 

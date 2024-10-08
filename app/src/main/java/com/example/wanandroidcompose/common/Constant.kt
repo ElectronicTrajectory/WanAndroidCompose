@@ -12,7 +12,6 @@ val mineMenuItems =
         MineMenu.Rank,
         MineMenu.Share,
         MineMenu.Favorite,
-        MineMenu.Bookmark,
         MineMenu.History,
         MineMenu.About,
         MineMenu.Setting

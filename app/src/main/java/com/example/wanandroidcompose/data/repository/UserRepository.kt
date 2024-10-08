@@ -18,4 +18,11 @@ class UserRepository @Inject constructor(private val api: ApiService) {
             api.register(username, password, repassword)
         }
     }
+
+    suspend fun getDetailUserInfo() = resultFlow {
+        getResult {
+            api.getDetailUserInfo()
+        }
+    }
+
 }

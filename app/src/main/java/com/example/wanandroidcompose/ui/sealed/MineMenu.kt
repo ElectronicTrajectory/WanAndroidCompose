@@ -14,11 +14,10 @@ sealed class MineMenu(
     val trailingIcon: ImageVector? = Icons.Rounded.ArrowForwardIos,
     val route: String
 ) {
-    object Rank : MineMenu(Icons.Rounded.Face, R.string.mine_menu_rank, route = "rank_screen")
-    object Share : MineMenu(Icons.Rounded.Face, R.string.mine_menu_share, route = "share_screen")
-    object Favorite : MineMenu(Icons.Rounded.Face, R.string.mine_menu_favorite, route = "favorite_screen")
-    object Bookmark : MineMenu(Icons.Rounded.Face, R.string.mine_menu_bookmark, route = "bookmark_screen")
-    object History : MineMenu(Icons.Rounded.Face, R.string.mine_menu_history, route = "history_screen")
-    object About : MineMenu(Icons.Rounded.Face, R.string.mine_menu_about, route = "about_screen")
-    object Setting : MineMenu(Icons.Rounded.Face, R.string.mine_menu_setting, route = "setting_screen")
+    object Rank : MineMenu(Icons.Rounded.Face, R.string.mine_menu_rank, route = Screen.RankScreen.route)
+    object Share : MineMenu(Icons.Rounded.Face, R.string.mine_menu_share, route = Screen.ShareScreen.route)
+    object Favorite : MineMenu(Icons.Rounded.Face, R.string.mine_menu_favorite, route = Screen.FavoriteScreen.route)
+    object History : MineMenu(Icons.Rounded.Face, R.string.mine_menu_history, route = Screen.HistoryScreen.route)
+    object About : MineMenu(Icons.Rounded.Face, R.string.mine_menu_about, route = Screen.AboutScreen.route)
+    object Setting : MineMenu(Icons.Rounded.Face, R.string.mine_menu_setting, route = Screen.SettingScreen.route)
 }

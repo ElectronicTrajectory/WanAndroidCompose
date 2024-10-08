@@ -31,14 +31,11 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
         }
     }
     composable(Screen.SystemScreen.route) {
-        SystemScreen {
+        SystemScreen(navigate = {
             navController.navigate(it)
-        }
-    }
-    composable(Screen.FavoriteScreen.route) {
-        FavoriteScreen {
-            navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.PlaygroundScreen.route) {
         PlaygroundScreen {
@@ -50,29 +47,32 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
 
 
     composable(Screen.RankScreen.route) {
-        RankScreen {
+        RankScreen(navigate = {
             navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.ShareScreen.route) {
-        ShareScreen {
+        ShareScreen(navigate = {
             navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.FavoriteScreen.route) {
-        FavoriteScreen {
+        FavoriteScreen(navigate = {
             navController.navigate(it)
-        }
-    }
-    composable(Screen.BookmarkScreen.route) {
-        BookmarkScreen {
-            navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.HistoryScreen.route) {
-        HistoryScreen {
+        HistoryScreen(navigate = {
             navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.AboutScreen.route) {
         AboutScreen {
@@ -84,5 +84,11 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
             navController.navigate(it)
         }
     }
-
+    composable(Screen.UserInfoScreen.route) {
+        UserInfoScreen(navigate = {
+            navController.navigate(it)
+        }, onBack = {
+            navController.popBackStack()
+        })
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.wanandroidcompose.network
 
 import com.example.wanandroidcompose.data.entity.resp.CollectArticleResp
+import com.example.wanandroidcompose.data.entity.resp.DetailUserInfo
 import com.example.wanandroidcompose.data.entity.resp.HomeArticleResp
 import com.example.wanandroidcompose.data.entity.resp.LoginRegisterResp
 import com.example.wanandroidcompose.data.entity.resp.QAResp
+import com.example.wanandroidcompose.data.entity.resp.SystemResp
 import com.example.wanandroidcompose.data.entity.resp.UserArticleResp
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,7 +26,7 @@ interface ApiService {
      * 从1开始,
      * 该接口支持传入 page_size 控制分页数量，取值为[1-40]，不传则使用默认值，一旦传入了 page_size，后续该接口分页都需要带上，否则会造成分页读取错误。
      */
-    @GET("wenda/list/{page}/json ")
+    @GET("wenda/list/{page}/json")
     suspend fun getQaList(@Path("page") page: Int): Response<BaseRespModel<QAResp>>
 
     /**
@@ -56,6 +58,18 @@ interface ApiService {
     @GET("lg/collect/list/{page}/json")
     suspend fun getCollectArticleList(@Path("page") page: Int): Response<BaseRespModel<CollectArticleResp>>
 
+    /**
+     * 获取自己分享的文章列表
+     * page从1开始
+     */
+    @GET("user/lg/private_articles/{page}/json")
+    suspend fun getMyShareArticleList(@Path("page") page: Int): Response<BaseRespModel<CollectArticleResp>>
+
+    @GET("tree/json")
+    suspend fun getSystem(): Response<BaseRespModel<SystemResp>>
+
+    @GET("user/lg/userinfo/json")
+    suspend fun getDetailUserInfo(): Response<BaseRespModel<DetailUserInfo>>
 }
 //
 ///**

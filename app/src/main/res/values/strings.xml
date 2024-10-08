@@ -9,10 +9,10 @@
 
     <string name="test_str">测试</string>
 
+    <string name="mine_user_info">个人信息</string>
     <string name="mine_menu_rank">我的积分</string>
     <string name="mine_menu_share">我的分享</string>
     <string name="mine_menu_favorite">我的收藏</string>
-    <string name="mine_menu_bookmark">我的书签</string>
     <string name="mine_menu_history">浏览历史</string>
     <string name="mine_menu_about">关于作者</string>
     <string name="mine_menu_setting">系统设置</string>
@@ -20,5 +20,7 @@
     <string name="login">登录</string>
     <string name="login_input_account">请输入账号</string>
     <string name="login_input_password">请输入密码</string>
+
+    <string name="please_login">请登录</string>
 
 </resources>
