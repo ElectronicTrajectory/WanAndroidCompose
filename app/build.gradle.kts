@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)//系统栏颜色
     implementation(libs.androidx.core.splashscreen)//闪屏页
     implementation(libs.bundles.retrofit)//网络请求
+    implementation(libs.bundles.paging)//分页加载
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 }

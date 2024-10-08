@@ -19,6 +19,7 @@ splashscreen = "1.0.1"
 retrofit = "2.9.0"
 hilt = "2.51.1"
 hilt_navigation_compose = "1.2.0"
+paging = "3.3.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,7 +40,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "iconsExtended" }
-blankj = { group = "com.blankj",name = "utilcodex", version.ref = "blankj" }
+blankj = { group = "com.blankj", name = "utilcodex", version.ref = "blankj" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
@@ -53,9 +54,12 @@ hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", v
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 
+paging_compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+paging_runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+
 [bundles]
 retrofit = ["retrofit", "retrofit-adapter-rxjava2", "retrofit-converter-gson", "retrofit-converter-scalars"]
-
+paging = ["paging_compose", "paging_runtime"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
