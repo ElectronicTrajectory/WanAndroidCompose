@@ -1,5 +1,6 @@
 package com.example.wanandroidcompose.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import com.example.wanandroidcompose.data.entity.resp.asArticle
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.article.Article
 import com.example.wanandroidcompose.ui.component.common.Toolbar
+import com.example.wanandroidcompose.ui.sealed.Screen
 import com.example.wanandroidcompose.ui.viewmodel.CollectArticleViewModel
 
 @Composable
@@ -41,7 +43,9 @@ fun FavoriteScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                 if (index == 0) {
                     Spacer(modifier = Modifier.height(12.dp))
                 }
-                Article(modifier = Modifier, article = article.asArticle())
+                Article(modifier = Modifier.clickable {
+                    navigate(Screen.WebViewScreen.route)
+                }, article = article.asArticle())
                 Spacer(modifier = Modifier.height(12.dp))
 
             }

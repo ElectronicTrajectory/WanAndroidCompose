@@ -1,5 +1,6 @@
 package com.example.wanandroidcompose.ui.screen
 
+import android.net.Uri
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -91,4 +92,15 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
             navController.popBackStack()
         })
     }
+
+    composable(Screen.WebViewScreen.route) { backStackEntry ->
+        val url = backStackEntry.arguments?.getString("url")
+        url?.let {
+            val decodedUrl = Uri.decode(url)
+            WebViewScreen(decodedUrl, onBack = {
+                navController.popBackStack()
+            })
+        }
+    }
+
 }
