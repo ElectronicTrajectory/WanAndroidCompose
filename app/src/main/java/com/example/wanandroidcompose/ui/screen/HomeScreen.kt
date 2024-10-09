@@ -111,12 +111,20 @@ fun HomeScreen(navigate: (String) -> Unit) {
             when {
                 loadState.refresh is LoadState.Loading -> {
                     // 初次加载时的加载视图
-                    HintView(Modifier.fillMaxSize(), Icons.Default.Error, stringResource(id = R.string.load_list_loading))
+                    HintView(
+                        Modifier.fillMaxSize(),
+                        Icons.Default.Error,
+                        stringResource(id = R.string.load_list_loading)
+                    )
                 }
 
                 loadState.refresh is LoadState.Error -> {
                     // 错误视图
-                    HintView(Modifier.fillMaxSize(), Icons.Default.Error, stringResource(id = R.string.load_list_load_error))
+                    HintView(
+                        Modifier.fillMaxSize(),
+                        Icons.Default.Error,
+                        stringResource(id = R.string.load_list_load_error)
+                    )
                 }
 
             }
