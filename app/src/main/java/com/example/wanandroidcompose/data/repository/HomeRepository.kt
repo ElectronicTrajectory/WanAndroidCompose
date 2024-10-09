@@ -3,7 +3,6 @@ package com.example.wanandroidcompose.data.repository
 import com.example.wanandroidcompose.network.ApiService
 import com.example.wanandroidcompose.network.getResult
 import com.example.wanandroidcompose.network.resultFlow
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(private val api: ApiService) {

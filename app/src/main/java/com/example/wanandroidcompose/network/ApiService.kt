@@ -27,15 +27,15 @@ interface ApiService {
      * 该接口支持传入 page_size 控制分页数量，取值为[1-40]，不传则使用默认值，一旦传入了 page_size，后续该接口分页都需要带上，否则会造成分页读取错误。
      */
     @GET("wenda/list/{page}/json")
-    suspend fun getQaList(@Path("page") page: Int): Response<BaseRespModel<QAResp>>
+    suspend fun getQaList(@Path("page") page: Int,@Query("page_size") pageSize: Int = 20): Response<BaseRespModel<QAResp>>
 
     /**
      * 广场，获取用户的文章
      * 从0开始
-     * 该接口支持传入 page_size 控制分页数量，取值为[1-40]，不传则使用默认值，一旦传入了 page_size，后续该接口分页都需要带上，否则会造成分页读取错误。
+     * 该接口支持传入 page_size 控制分页数量，取值为[1-40]，不传则使用默认值20，一旦传入了 page_size，后续该接口分页都需要带上，否则会造成分页读取错误。
      */
-    @GET("user_article/list/{page}/json ")
-    suspend fun getUserArticleList(@Path("page") page: Int): Response<BaseRespModel<UserArticleResp>>
+    @GET("user_article/list/{page}/json")
+    suspend fun getUserArticleList(@Path("page") page: Int,@Query("page_size") pageSize: Int = 20): Response<BaseRespModel<UserArticleResp>>
 
     @POST("user/login")
     suspend fun login(
