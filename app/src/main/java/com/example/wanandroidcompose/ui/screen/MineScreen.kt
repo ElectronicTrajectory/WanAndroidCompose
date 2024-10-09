@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.wanandroidcompose.R
 import com.example.wanandroidcompose.common.UserInfoUtils
 import com.example.wanandroidcompose.common.clickableWithoutRipple
+import com.example.wanandroidcompose.common.MikuImageLink
 import com.example.wanandroidcompose.common.mineMenuItems
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.common.MenuItem
@@ -42,7 +43,7 @@ fun MineScreen(navigate: (String) -> Unit) {
                     }
                 }
                 .padding(horizontal = 12.dp),
-            "https://ts2.cn.mm.bing.net/th?id=OIP.2sI-q7UlIi6zLgWLjLYS6AHaHa",
+            MikuImageLink,
             userInfo?.username?: stringResource(id = R.string.please_login),
             userInfo?.email?:"")
         Spacer(modifier = Modifier.height(36.dp))

@@ -19,3 +19,6 @@ val mineMenuItems =
 
 
 val blankOrNull = "---"
+
+
+val MikuImageLink = "https://ts2.cn.mm.bing.net/th?id=OIP.2sI-q7UlIi6zLgWLjLYS6AHaHa"
