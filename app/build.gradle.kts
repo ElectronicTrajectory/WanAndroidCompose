@@ -80,5 +80,7 @@ dependencies {
     implementation(libs.bundles.retrofit)//网络请求
     implementation(libs.bundles.paging)//分页加载
     implementation(libs.hilt)
+    implementation(libs.compose.material)
+
     kapt(libs.hilt.compiler)
 }
