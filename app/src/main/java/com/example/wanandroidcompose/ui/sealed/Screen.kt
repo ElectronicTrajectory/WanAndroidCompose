@@ -16,7 +16,7 @@ sealed class Screen(
     object UserInfoScreen : Screen(R.string.mine_user_info, "userinfo_screen")
     object RankScreen : Screen(R.string.mine_menu_rank, "rank_screen")
     object ShareScreen : Screen(R.string.mine_menu_share, "share_screen")
-    object FavoriteScreen : Screen(R.string.mine_menu_favorite, "favorite_screen")
+    object CollectedScreen : Screen(R.string.mine_menu_collected, "Collected_screen")
     object HistoryScreen : Screen(R.string.mine_menu_history, "history_screen")
     object AboutScreen : Screen(R.string.mine_menu_about, "about_screen")
     object SettingScreen : Screen(R.string.mine_menu_setting, "setting_screen")

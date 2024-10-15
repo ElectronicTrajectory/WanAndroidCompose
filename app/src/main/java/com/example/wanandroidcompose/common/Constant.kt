@@ -11,7 +11,7 @@ val mineMenuItems =
     listOf(
         MineMenu.Rank,
         MineMenu.Share,
-        MineMenu.Favorite,
+        MineMenu.Collected,
         MineMenu.History,
         MineMenu.About,
         MineMenu.Setting

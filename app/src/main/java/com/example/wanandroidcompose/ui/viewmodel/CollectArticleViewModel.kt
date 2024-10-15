@@ -2,31 +2,22 @@ package com.example.wanandroidcompose.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.wanandroidcompose.data.entity.resp.CollectArticleResp
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.example.wanandroidcompose.data.paging.CollectedArticlePagingSource
 import com.example.wanandroidcompose.data.repository.OtherRepository
-import com.example.wanandroidcompose.network.handleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CollectArticleViewModel @Inject constructor(private val repo: OtherRepository)  : ViewModel() {
-    private val _data = MutableStateFlow<CollectArticleResp?>(null)
-    val data = _data.asStateFlow()
-
-    fun getArticleList(page: Int){
-        viewModelScope.launch {
-            repo.getCollectArticleList(page).collect{
-                it.handleResult(
-                    onSuccess = { resp->
-                        _data.update { resp }
-                    }
-                )
-            }
-        }
-    }
+    val pager = Pager(
+        PagingConfig(
+            pageSize = 20,          // 每页的数据量
+            prefetchDistance = 1,   // 当用户距离当前页底部还有 1 项时开始加载下一页
+        ),
+        pagingSourceFactory = { CollectedArticlePagingSource(repo) }
+    ).flow.cachedIn(viewModelScope)
 
 }

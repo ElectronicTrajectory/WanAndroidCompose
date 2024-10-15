@@ -1,5 +1,7 @@
 package com.example.wanandroidcompose.network
 
+import android.content.Intent
+import com.example.wanandroidcompose.App
 import com.example.wanandroidcompose.common.toast
 
 
@@ -11,15 +13,16 @@ fun handlerApiCode(
     message: String,
 ) {
     //不希望弹吐司提示的Code列表,可以用于做其他的独立操作
-    val doNotShowToastCodeList = arrayOf(403)
-    if (doNotShowToastCodeList.contains(code)){
-        when(code){
-            403->{
-                "身份信息已过期，请重新登录".toast()
-//                logout()
+    val doNotShowToastCodeList = arrayOf(403,-1001)
+    if (doNotShowToastCodeList.contains(code)) {
+        when (code) {
+            -1001 -> {
+                App.application.sendBroadcast(
+                    Intent("Logout")
+                )
             }
         }
-    }else{
+    } else {
         message.toast()
     }
 

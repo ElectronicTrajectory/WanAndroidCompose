@@ -22,7 +22,7 @@ fun SystemScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
     ) {
         Toolbar(
             modifier = Modifier.padding(top = padding.calculateTopPadding()),
-            title = stringResource(id = R.string.mine_menu_favorite),
+            title = stringResource(id = R.string.mine_menu_collected),
             onBack = onBack
         )
         LazyColumn(Modifier.padding(horizontal = 12.dp)) {

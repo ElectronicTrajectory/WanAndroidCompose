@@ -71,7 +71,10 @@ fun <T> resultFlow(flow: suspend () -> Flow<MyResult<T>>): Flow<MyResult<T>> =
         flow().collect { result ->
             when (result.status) {
                 MyResult.Status.SUCCESS -> emit(MyResult.success(result.code, result.data))
-                MyResult.Status.FAILURE -> emit(MyResult.failure(result.code, result.msg, null))
+                MyResult.Status.FAILURE -> {
+                    handlerApiCode(result.code,result.msg)
+                    emit(MyResult.failure(result.code, result.msg, null))
+                }
                 else -> emit(MyResult.loading())
             }
         }

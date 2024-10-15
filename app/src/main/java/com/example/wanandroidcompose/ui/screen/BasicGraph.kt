@@ -61,8 +61,8 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
             navController.popBackStack()
         })
     }
-    composable(Screen.FavoriteScreen.route) {
-        FavoriteScreen(navigate = {
+    composable(Screen.CollectedScreen.route) {
+        CollectedScreen(navigate = {
             navController.navigate(it)
         }, onBack = {
             navController.popBackStack()

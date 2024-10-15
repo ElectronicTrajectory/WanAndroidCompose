@@ -81,11 +81,11 @@ fun QAScreen(navigate: (String) -> Unit) {
                     val item = lazyPagingItems[index]
                     item?.let {
                         Article(modifier = Modifier.clickable {
-                            item.link?.let{
+                            item.link?.let {
                                 val encodedUrl = Uri.encode(item.link)
-                                val route = Screen.WebViewScreen.route.replace("{url}",encodedUrl)
+                                val route = Screen.WebViewScreen.route.replace("{url}", encodedUrl)
                                 navigate(route)
-                            }?:run {
+                            } ?: run {
                                 "无连接".toast()
                             }
                         }, article = item.asArticle())
@@ -137,7 +137,11 @@ fun QAScreen(navigate: (String) -> Unit) {
                 loadState.refresh is LoadState.Error -> {
                     // 错误视图
                     HintView(
-                        Modifier.fillMaxSize(),
+                        Modifier
+                            .fillMaxSize()
+                            .clickableWithoutRipple {
+                                lazyPagingItems.refresh()
+                            },
                         Icons.Default.Error,
                         stringResource(id = R.string.load_list_load_error)
                     )

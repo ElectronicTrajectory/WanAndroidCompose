@@ -6,7 +6,7 @@ import com.example.wanandroidcompose.network.resultFlow
 import javax.inject.Inject
 
 class OtherRepository @Inject constructor(private val api: ApiService) {
-    suspend fun getCollectArticleList(page: Int) = resultFlow {
+    suspend fun getArticleList(page: Int) = resultFlow {
         getResult {
             api.getCollectArticleList(page)
         }
