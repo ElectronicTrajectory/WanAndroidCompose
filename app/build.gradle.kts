@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.compose)
 }
 
 android {
@@ -82,6 +83,8 @@ dependencies {
     implementation(libs.bundles.paging)//分页加载
     implementation(libs.hilt)
     implementation(libs.compose.material)
+    implementation(libs.androidx.room)
 
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
+    ksp(libs.androidx.room.compiler)
 }

@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.0"
-kotlin = "1.9.0"
+kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -21,6 +21,9 @@ hilt = "2.52"
 hilt_navigation_compose = "1.2.0"
 paging = "3.3.2"
 webkit = "1.12.1"
+room_version = "2.6.1"
+ksp = "2.0.20-1.0.25"
+composePlugin = "2.0.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +63,9 @@ paging_compose = { module = "androidx.paging:paging-compose", version.ref = "pag
 paging_runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
 
+androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+
 [bundles]
 retrofit = ["retrofit", "retrofit-adapter-rxjava2", "retrofit-converter-gson", "retrofit-converter-scalars"]
 paging = ["paging_compose", "paging_runtime"]
@@ -68,3 +74,5 @@ paging = ["paging_compose", "paging_runtime"]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composePlugin" }
