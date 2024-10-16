@@ -56,6 +56,6 @@ fun Article(modifier: Modifier, article: Article) {
 @Composable
 private fun ArticlePreview() {
     AppTheme {
-        Article(Modifier, Article("123", "123", "123", "123"))
+        Article(Modifier, Article("123", "123", "123", "123",""))
     }
 }

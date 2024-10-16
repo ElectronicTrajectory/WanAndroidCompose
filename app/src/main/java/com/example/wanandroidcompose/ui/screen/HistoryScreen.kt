@@ -14,7 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.JsonUtils
 import com.example.wanandroidcompose.R
+import com.example.wanandroidcompose.common.article2JsonForWebScreen
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.article.Article
 import com.example.wanandroidcompose.ui.component.common.Toolbar
@@ -40,20 +43,21 @@ fun HistoryScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
             items(lazyPagingItems.itemCount) { index ->
                 val item = lazyPagingItems[index]
                 item?.let {
+                    val article = com.example.wanandroidcompose.data.model.Article(
+                        item.author,
+                        item.title,
+                        item.time,
+                        item.type,
+                        item.link
+                    )
+                    if (index == 0) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
                     Article(
                         modifier = Modifier.clickable {
-
-                            val encodedUrl = Uri.encode(item.title)
-                            val route = Screen.WebViewScreen.route.replace("{url}", encodedUrl)
-                            navigate(route)
-
+                            navigate(article2JsonForWebScreen(article))
                         },
-                        article = com.example.wanandroidcompose.data.model.Article(
-                            item.author,
-                            item.title,
-                            item.time,
-                            item.type
-                        )
+                        article = article
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                 }

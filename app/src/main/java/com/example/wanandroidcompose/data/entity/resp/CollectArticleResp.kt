@@ -36,7 +36,8 @@ fun CollectArticleResp.Data.asArticle(): Article {
         this.author?:"",
         this.title?:"",
         this.niceDate?:"",
-        this.chapterName?:""
+        this.chapterName?:"",
+        this.link?:""
     )
 }
 

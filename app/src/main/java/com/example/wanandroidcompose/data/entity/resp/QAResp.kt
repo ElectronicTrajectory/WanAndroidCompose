@@ -67,6 +67,7 @@ fun QAResp.Data.asArticle(): Article {
         author,
         this.title?:"",
         this.niceDate?:"",
-        this.superChapterName?:""
+        this.superChapterName?:"",
+        this.link?:""
     )
 }

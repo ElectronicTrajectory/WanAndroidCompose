@@ -21,6 +21,6 @@ sealed class Screen(
     object AboutScreen : Screen(R.string.mine_menu_about, "about_screen")
     object SettingScreen : Screen(R.string.mine_menu_setting, "setting_screen")
 
-    object WebViewScreen : Screen(R.string.web, "web/{url}")
+    object WebViewScreen : Screen(R.string.web, "web/{article}")
 
 }

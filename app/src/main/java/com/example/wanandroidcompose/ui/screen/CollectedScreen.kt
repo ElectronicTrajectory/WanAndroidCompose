@@ -1,6 +1,5 @@
 package com.example.wanandroidcompose.ui.screen
 
-import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.wanandroidcompose.R
+import com.example.wanandroidcompose.common.article2JsonForWebScreen
 import com.example.wanandroidcompose.common.clickableWithoutRipple
 import com.example.wanandroidcompose.common.toast
 import com.example.wanandroidcompose.data.entity.resp.asArticle
@@ -40,7 +40,6 @@ import com.example.wanandroidcompose.ui.component.common.FloatButton
 import com.example.wanandroidcompose.ui.component.common.Toolbar
 import com.example.wanandroidcompose.ui.component.placeholder.HintView
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMore
-import com.example.wanandroidcompose.ui.sealed.Screen
 import com.example.wanandroidcompose.ui.viewmodel.CollectArticleViewModel
 import kotlinx.coroutines.launch
 
@@ -80,9 +79,7 @@ fun CollectedScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                             }
                             Article(modifier = Modifier.clickable {
                                 item.link?.let {
-                                    val encodedUrl = Uri.encode(item.link)
-                                    val route = Screen.WebViewScreen.route.replace("{url}", encodedUrl)
-                                    navigate(route)
+                                    navigate(article2JsonForWebScreen(item.asArticle()))
                                 } ?: run {
                                     "无连接".toast()
                                 }

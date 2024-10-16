@@ -12,4 +12,5 @@ data class ArticleEntity(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "time") val time: String,
     @ColumnInfo(name = "type") val type: String,
+    @ColumnInfo(name = "link") val link: String,
 )
