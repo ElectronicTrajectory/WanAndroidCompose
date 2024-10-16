@@ -12,7 +12,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.rounded.VerticalAlignTop
+import androidx.compose.material.icons.rounded.ArrowUpward
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -40,6 +40,7 @@ import com.example.wanandroidcompose.ui.component.common.FloatButton
 import com.example.wanandroidcompose.ui.component.common.Toolbar
 import com.example.wanandroidcompose.ui.component.placeholder.HintView
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMore
+import com.example.wanandroidcompose.ui.component.placeholder.LoadMoreState
 import com.example.wanandroidcompose.ui.viewmodel.CollectArticleViewModel
 import kotlinx.coroutines.launch
 
@@ -70,7 +71,7 @@ fun CollectedScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
             )
 
             Box(Modifier.fillMaxSize()) {
-                LazyColumn(Modifier.padding(horizontal = 12.dp)) {
+                LazyColumn(Modifier.padding(horizontal = 12.dp), state = lazyListState) {
                     items(lazyPagingItems.itemCount) { index ->
                         val item = lazyPagingItems[index]
                         item?.let {
@@ -91,12 +92,12 @@ fun CollectedScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                         when {
                             loadState.append is LoadState.Loading -> {
                                 // 分页加载更多时的加载视图
-                                item { LoadMore(stringResource(id = R.string.load_list_load_more)) }
+                                 item { LoadMore(LoadMoreState.LOADING) }
                             }
 
                             loadState.append is LoadState.Error -> {
                                 // 加载更多时发生错误
-                                item { LoadMore(stringResource(id = R.string.load_list_load_error)) }
+                                 item { LoadMore(LoadMoreState.FAIL) }
                             }
                         }
                     }
@@ -118,7 +119,7 @@ fun CollectedScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                         }
                     }
                     .padding(end = 12.dp, bottom = 12.dp),
-                icon = Icons.Rounded.VerticalAlignTop,
+                icon = Icons.Rounded.ArrowUpward,
                 iconColor = MaterialTheme.colorScheme.onSecondary,
                 bgColor = MaterialTheme.colorScheme.secondary
             )

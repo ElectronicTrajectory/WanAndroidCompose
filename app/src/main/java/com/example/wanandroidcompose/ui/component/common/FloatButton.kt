@@ -2,10 +2,12 @@ package com.example.wanandroidcompose.ui.component.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.VerticalAlignTop
+import androidx.compose.material.icons.rounded.ArrowUpward
+
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,14 +30,15 @@ fun FloatButton(
 ) {
     Box(
         modifier = modifier
-            .size(30.dp)
+            .size(50.dp)
             .background(bgColor, CircleShape),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             imageVector = icon,
             contentDescription = desc,
-            tint = iconColor
+            tint = iconColor,
+            modifier = Modifier.size(30.dp)
         )
     }
 }
@@ -44,6 +47,6 @@ fun FloatButton(
 @Composable
 private fun FloatButtonPreview() {
     AppTheme {
-        FloatButton(Modifier, Icons.Rounded.VerticalAlignTop, Color.Black, Color.LightGray)
+        FloatButton(Modifier, Icons.Rounded.ArrowUpward, Color.Black, Color.LightGray)
     }
 }

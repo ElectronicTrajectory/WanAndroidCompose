@@ -8,8 +8,14 @@ import androidx.room.Query
 
 @Dao
 interface ArticleDao {
-    @Query("SELECT * FROM articles ORDER BY uid DESC LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM articles ORDER BY last_read_time DESC LIMIT :limit OFFSET :offset")
     suspend fun getArticlesByPage(limit: Int, offset: Int): List<ArticleEntity>
+
+    @Query("UPDATE articles SET last_read_time = :timestamp WHERE link = :link")
+    suspend fun updateReadTime(link: String, timestamp: Long)
+
+    @Query("SELECT * FROM articles WHERE link = :link LIMIT 1")
+    suspend fun getArticleByLink(link: String): ArticleEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(articleEntity: ArticleEntity)

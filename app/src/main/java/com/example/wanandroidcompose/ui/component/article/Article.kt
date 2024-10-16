@@ -19,34 +19,22 @@ import com.example.wanandroidcompose.ui.theme.AppTheme
 
 @Composable
 fun Article(modifier: Modifier, article: Article) {
+    val contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+    val bgC = MaterialTheme.colorScheme.secondaryContainer
     Box(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.secondaryContainer, MaterialTheme.shapes.medium)
+            .background(bgC, MaterialTheme.shapes.medium)
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 12.dp)
     ) {
         Column {
             Row {
-                Text(
-                    text = article.author,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
+                Text(text = article.author, color = contentColor)
                 Spacer(modifier = Modifier.weight(1F))
-
-                Text(
-                    text = article.time,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
+                Text(text = article.time, color = contentColor)
             }
-            Text(
-                text = article.title,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-
-            Text(
-                text = article.type,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
+            Text(text = article.title, color = contentColor)
+            Text(text = article.type, color = contentColor)
         }
 
     }
@@ -56,6 +44,6 @@ fun Article(modifier: Modifier, article: Article) {
 @Composable
 private fun ArticlePreview() {
     AppTheme {
-        Article(Modifier, Article("123", "123", "123", "123",""))
+        Article(Modifier, Article("123", "123", "123", "123", ""))
     }
 }

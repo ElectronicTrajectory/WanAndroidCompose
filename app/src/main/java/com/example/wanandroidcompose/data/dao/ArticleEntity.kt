@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "articles", indices = [Index(value = ["title"], unique = true)])
+@Entity(tableName = "articles", indices = [Index(value = ["link"], unique = true)])
 data class ArticleEntity(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "author") val author: String,
@@ -13,4 +13,5 @@ data class ArticleEntity(
     @ColumnInfo(name = "time") val time: String,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "link") val link: String,
+    @ColumnInfo(name = "last_read_time")  val lastReadTime: Long,
 )

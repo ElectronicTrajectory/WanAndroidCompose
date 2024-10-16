@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.wanandroidcompose.data.dao.ArticleEntity
 import com.example.wanandroidcompose.data.model.Article
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.common.FloatButton
@@ -29,16 +28,9 @@ fun WebViewScreen(article: Article, onBack: () -> Unit) {
 
     val viewModel: LocalDataViewModel = hiltViewModel()
     val padding = LocalInnerPadding.current
+
     LaunchedEffect(Unit) {
-        viewModel.insert(
-            ArticleEntity(
-                author = article.author,
-                title = article.title,
-                time = article.time,
-                type = article.type,
-                link = article.link
-            )
-        )
+        viewModel.check(article)
     }
     Box(
         Modifier

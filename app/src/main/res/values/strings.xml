@@ -27,7 +27,7 @@
     <string name="float_btn">悬浮按钮</string>
 
 
-    <string name="load_list_loading">载入中</string>
+    <string name="load_list_loading">加载中</string>
     <string name="load_list_empty">暂无内容</string>
     <string name="load_list_load_more">加载更多</string>
     <string name="load_list_load_error">加载失败</string>

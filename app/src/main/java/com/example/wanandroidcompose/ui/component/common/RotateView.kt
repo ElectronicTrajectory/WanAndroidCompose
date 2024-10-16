@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.wanandroidcompose.ui.theme.AppTheme
 
 @Composable
-fun RotateView(size: Dp = 20.dp, icon: ImageVector, direction: Boolean = true) {
+fun RotateView(size: Dp = 20.dp, icon: ImageVector, color: Color, direction: Boolean = true) {
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val angle by infiniteTransition.animateFloat(
         initialValue = if (direction) 360f else 0f,
@@ -38,7 +38,7 @@ fun RotateView(size: Dp = 20.dp, icon: ImageVector, direction: Boolean = true) {
         modifier = Modifier
             .size(size)
             .graphicsLayer { rotationZ = angle }, // 应用旋转角度
-        tint = Color(0xFF0277BD)
+        tint = color
     )
 }
 
@@ -46,6 +46,6 @@ fun RotateView(size: Dp = 20.dp, icon: ImageVector, direction: Boolean = true) {
 @Composable
 private fun RotateViewPreview() {
     AppTheme {
-        RotateView(20.dp, Icons.Default.Cached, true)
+        RotateView(20.dp, Icons.Default.Cached, Color.LightGray,true)
     }
 }
