@@ -2,11 +2,12 @@ package com.example.wanandroidcompose.data.dao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "articles", indices = [Index(value = ["title"], unique = true)])
 data class ArticleEntity(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "author") val author: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "time") val time: String,

@@ -54,6 +54,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+retrofit-response-type-keeper = {module = "com.squareup.retrofit2:response-type-keeper",version.ref = "retrofit"}
 
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_navigation_compose" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -65,6 +66,8 @@ androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "w
 
 androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+
 
 [bundles]
 retrofit = ["retrofit", "retrofit-adapter-rxjava2", "retrofit-converter-gson", "retrofit-converter-scalars"]
