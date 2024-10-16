@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface ArticleDao {
-    @Query("SELECT * FROM articles LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM articles ORDER BY uid DESC LIMIT :limit OFFSET :offset")
     suspend fun getArticlesByPage(limit: Int, offset: Int): List<ArticleEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
