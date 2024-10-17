@@ -37,6 +37,7 @@ import com.example.wanandroidcompose.ui.component.article.Article
 import com.example.wanandroidcompose.ui.component.common.FloatButton
 import com.example.wanandroidcompose.ui.component.common.Toolbar
 import com.example.wanandroidcompose.ui.component.placeholder.HintView
+import com.example.wanandroidcompose.ui.component.placeholder.HintViewState
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMore
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMoreState
 import com.example.wanandroidcompose.ui.viewmodel.LocalDataViewModel
@@ -99,12 +100,12 @@ fun HistoryScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                         when {
                             loadState.append is LoadState.Loading -> {
                                 // 分页加载更多时的加载视图
-                                 item { LoadMore(LoadMoreState.LOADING) }
+                                item { LoadMore(LoadMoreState.LOADING) }
                             }
 
                             loadState.append is LoadState.Error -> {
                                 // 加载更多时发生错误
-                                 item { LoadMore(LoadMoreState.FAIL) }
+                                item { LoadMore(LoadMoreState.FAIL) }
                             }
                         }
                     }
@@ -114,14 +115,19 @@ fun HistoryScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                     pullRefreshState,
                     Modifier.align(Alignment.TopCenter)
                 )
+                if (lazyPagingItems.itemCount == 0) {
+                    HintView(
+                        Modifier.fillMaxSize(),
+                        HintViewState.EMPTY
+                    )
+                }
                 lazyPagingItems.apply {
                     when {
                         loadState.refresh is LoadState.Loading -> {
                             // 初次加载时的加载视图
                             HintView(
                                 Modifier.fillMaxSize(),
-                                Icons.Default.Error,
-                                stringResource(id = R.string.load_list_loading)
+                                HintViewState.LOADING
                             )
                         }
 
@@ -133,8 +139,7 @@ fun HistoryScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
                                     .clickableWithoutRipple {
                                         lazyPagingItems.refresh()
                                     },
-                                Icons.Default.Error,
-                                (loadState.refresh as LoadState.Error).error.message.toString()
+                                HintViewState.FAIL
                             )
                         }
 

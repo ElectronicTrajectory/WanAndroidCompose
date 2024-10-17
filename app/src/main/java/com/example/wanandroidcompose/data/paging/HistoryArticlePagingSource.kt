@@ -14,9 +14,6 @@ class HistoryArticlePagingSource(
         return try {
             val currentPage = params.key ?: startIndex
             val data = articleDao.getArticlesByPage(pageSize, (currentPage - 1) * pageSize)
-            if (data.isEmpty()){
-                throw Exception("no data")
-            }
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == startIndex) null else currentPage - 1,

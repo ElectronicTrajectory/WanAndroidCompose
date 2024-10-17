@@ -38,6 +38,7 @@ import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.article.Article
 import com.example.wanandroidcompose.ui.component.common.FloatButton
 import com.example.wanandroidcompose.ui.component.placeholder.HintView
+import com.example.wanandroidcompose.ui.component.placeholder.HintViewState
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMore
 import com.example.wanandroidcompose.ui.component.placeholder.LoadMoreState
 import com.example.wanandroidcompose.ui.viewmodel.HomeViewModel
@@ -65,7 +66,7 @@ fun HomeScreen(navigate: (String) -> Unit) {
                 bottom = padding.calculateBottomPadding()
             )
     ) {
-        Column(Modifier.fillMaxSize()) {
+        Box(Modifier.fillMaxSize()) {
             LazyColumn(Modifier.padding(horizontal = 12.dp), state = lazyListState) {
                 items(lazyPagingItems.itemCount) { index ->
                     val item = lazyPagingItems[index]
@@ -97,54 +98,54 @@ fun HomeScreen(navigate: (String) -> Unit) {
                     }
                 }
             }
-        }
-        if (lazyListState.firstVisibleItemIndex != 0) {
-            FloatButton(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .clickableWithoutRipple {
-                        coroutineScope.launch {
-                            lazyListState.animateScrollToItem(0)
+
+            if (lazyListState.firstVisibleItemIndex != 0) {
+                FloatButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .clickableWithoutRipple {
+                            coroutineScope.launch {
+                                lazyListState.animateScrollToItem(0)
+                            }
                         }
+                        .padding(end = 12.dp, bottom = 12.dp),
+                    icon = Icons.Rounded.ArrowUpward,
+                    iconColor = MaterialTheme.colorScheme.onSecondary,
+                    bgColor = MaterialTheme.colorScheme.secondary
+                )
+            }
+
+            lazyPagingItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        // 初次加载时的加载视图
+                        HintView(
+                            Modifier.fillMaxSize(),
+                            HintViewState.LOADING
+                        )
                     }
-                    .padding(end = 12.dp, bottom = 12.dp),
-                icon = Icons.Rounded.ArrowUpward,
-                iconColor = MaterialTheme.colorScheme.onSecondary,
-                bgColor = MaterialTheme.colorScheme.secondary
+
+                    loadState.refresh is LoadState.Error -> {
+                        // 错误视图
+                        HintView(
+                            Modifier
+                                .fillMaxSize()
+                                .clickableWithoutRipple {
+                                    lazyPagingItems.refresh()
+                                },
+                            HintViewState.FAIL
+                        )
+                    }
+
+                }
+            }
+            PullRefreshIndicator(// 指示器
+                refreshing, // 当前是否要刷新
+                pullRefreshState,
+                Modifier.align(Alignment.TopCenter)
             )
         }
 
-        lazyPagingItems.apply {
-            when {
-                loadState.refresh is LoadState.Loading -> {
-                    // 初次加载时的加载视图
-                    HintView(
-                        Modifier.fillMaxSize(),
-                        Icons.Default.Error,
-                        stringResource(id = R.string.load_list_loading)
-                    )
-                }
-
-                loadState.refresh is LoadState.Error -> {
-                    // 错误视图
-                    HintView(
-                        Modifier
-                            .fillMaxSize()
-                            .clickableWithoutRipple {
-                                lazyPagingItems.refresh()
-                            },
-                        Icons.Default.Error,
-                        stringResource(id = R.string.load_list_load_error)
-                    )
-                }
-
-            }
-        }
-        PullRefreshIndicator(// 指示器
-            refreshing, // 当前是否要刷新
-            pullRefreshState,
-            Modifier.align(Alignment.TopCenter)
-        )
     }
 
 

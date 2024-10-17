@@ -84,9 +84,11 @@ fun NavGraphBuilder.addGraph(navController: NavHostController) {
         }
     }
     composable(Screen.SettingScreen.route) {
-        SettingScreen {
+        SettingScreen(navigate = {
             navController.navigate(it)
-        }
+        }, onBack = {
+            navController.popBackStack()
+        })
     }
     composable(Screen.UserInfoScreen.route) {
         UserInfoScreen(navigate = {

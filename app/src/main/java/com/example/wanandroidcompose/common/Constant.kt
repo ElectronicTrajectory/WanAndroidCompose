@@ -10,10 +10,10 @@ val topLevelScreens = listOf(
 val mineMenuItems =
     listOf(
         MineMenu.Rank,
-        MineMenu.Share,
+//        MineMenu.Share,
         MineMenu.Collected,
         MineMenu.History,
-        MineMenu.About,
+//        MineMenu.About,
         MineMenu.Setting
     )
 

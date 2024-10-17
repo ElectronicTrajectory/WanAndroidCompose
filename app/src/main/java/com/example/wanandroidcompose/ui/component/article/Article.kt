@@ -29,12 +29,25 @@ fun Article(modifier: Modifier, article: Article) {
     ) {
         Column {
             Row {
-                Text(text = article.author, color = contentColor)
+                Text(
+                    text = article.author,
+                    color = contentColor,
+                    style = MaterialTheme.typography.titleMedium
+                )
                 Spacer(modifier = Modifier.weight(1F))
-                Text(text = article.time, color = contentColor)
+                Text(
+                    text = article.time, color = contentColor,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
-            Text(text = article.title, color = contentColor)
-            Text(text = article.type, color = contentColor)
+            Text(
+                text = article.title, color = contentColor,
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = article.type, color = contentColor,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
 
     }
@@ -44,6 +57,14 @@ fun Article(modifier: Modifier, article: Article) {
 @Composable
 private fun ArticlePreview() {
     AppTheme {
-        Article(Modifier, Article("123", "123", "123", "123", ""))
+        Article(
+            Modifier, Article(
+                "TaylorSwift",
+                "TheMan",
+                "2019年8月23日",
+                "POP",
+                ""
+            )
+        )
     }
 }

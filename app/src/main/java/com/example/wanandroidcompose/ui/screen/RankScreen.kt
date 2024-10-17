@@ -1,5 +1,6 @@
 package com.example.wanandroidcompose.ui.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.wanandroidcompose.R
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
+import com.example.wanandroidcompose.ui.component.common.EmptyScreen
 import com.example.wanandroidcompose.ui.component.common.Toolbar
 
 @Composable
@@ -25,8 +27,11 @@ fun RankScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
             title = stringResource(id = R.string.mine_menu_rank),
             onBack = onBack
         )
-        LazyColumn(Modifier.padding(horizontal = 12.dp)) {
+        Box(modifier = Modifier){
+            EmptyScreen()
+            LazyColumn(Modifier.padding(horizontal = 12.dp)) {
 
+            }
         }
     }
 }
