@@ -7,25 +7,42 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wanandroidcompose.ui.theme.AppTheme
-import kotlin.math.abs
 
+/**
+ * @param baseLength 基准长度,用于计算圆形的半径,组件的宽高
+ * @param scaleRangeStep 用于计算圆球的缩放程度
+ * @param color1 球1的颜色
+ * @param color2 球2的颜色
+ */
 @Composable
-fun DoubleBallLoop() {
+fun DoubleBallLoop(
+    baseLength: Float,
+    scaleRangeStep: Float,
+    color1: Color,
+    color2: Color
+) {
 
-    val millis = 10000
+    val millis = 1600
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val scaleAnimate by infiniteTransition.animateFloat(
         initialValue = 0F,
@@ -39,92 +56,104 @@ fun DoubleBallLoop() {
         initialValue = 0F,
         targetValue = 1F,
         animationSpec = infiniteRepeatable(
-            animation = tween(millis/2, easing = LinearEasing),
+            animation = tween(millis / 2, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
         ), label = ""
     )
 
-    //progress 范围为 -1~1
+    //调整 progress 范围为 [-1,1]
     val progress = scaleAnimate - 1F
 
-    val ballRadius = 100F
-    val totalWidth = ballRadius * 1.5
-    val totalHeight = ballRadius * 2
+    val ballRadius = baseLength / 2
 
-    val color1 = Color.Red
-    val color2 = Color.Cyan
+    val translateFactor = ballRadius * 2
 
-    val translateXishu = 200F
+    val offsetX1 = translateFactor * translateAnimate
+    val offsetX2 = translateFactor * translateAnimate * -1
 
+    val maxScaleValue = 1F
+    val midScaleValue = maxScaleValue - scaleRangeStep
+    val minScaleValue = maxScaleValue - scaleRangeStep * 2
 
-    val offsetX1 = translateXishu * translateAnimate
-    val offsetX2 = translateXishu * translateAnimate * -1
+    val scale1 = getPercent1(progress, minScaleValue, midScaleValue, maxScaleValue)
+    val scale2 = getPercent2(progress, minScaleValue, midScaleValue, maxScaleValue)
 
-//    val offsetX1 = 0
-//    val offsetX2 = 0
+    val blendMode = BlendMode.Multiply
 
-    val scale1 =
-        when (progress) {
-            in -1F..-0.6F -> 0.6F + (progress + 1F) / 0.4F * 0.3F  // [-1, -0.6] 百分比均匀增大到0.9
-            in -0.6F..-0.4F -> 0.9F  // [-0.6, -0.4] 百分比不变，固定为0.9
-            in -0.4F..0F -> 0.9F - (progress + 0.4F) / 0.4F * 0.3F  // [-0.4, 0] 百分比均匀减小到0.6
-            in 0F..0.4F -> 0.6F - progress / 0.4F * 0.3F  // [0, 0.4] 百分比均匀减小到0.3
-            in 0.4F..0.6F -> 0.3F  // [0.4, 0.6] 百分比不变，固定为0.3
-            in 0.6F..1F -> 0.3F + (progress - 0.6F) / 0.4F * 0.3F  // [0.6, 1] 百分比均匀增大到0.6
-            else -> 0.6F  // 超出范围，默认返回0.6
-        }
-
-    val scale2 =
-//        getPercent(progress,0.6F,0.8F,1F)
-        when (progress) {
-            in -1F..-0.6F -> 0.6F - (progress + 1F) / 0.4F * 0.3F  // [-1, -0.6] 百分比均匀减小到0.3
-            in -0.6F..-0.4F -> 0.3F  // [-0.6, -0.4] 百分比不变，固定为0.3
-            in -0.4F..0F -> 0.3F + (progress + 0.4F) / 0.4F * 0.3F  // [-0.4, 0] 百分比均匀增大到0.6
-            in 0F..0.4F -> 0.6F + progress / 0.4F * 0.3F  // [0, 0.4] 百分比均匀增大到0.9
-            in 0.4F..0.6F -> 0.9F  // [0.4, 0.6] 百分比不变，固定为0.9
-            in 0.6F..1F -> 0.9F - (progress - 0.6F) / 0.4F * 0.3F  // [0.6, 1] 百分比均匀减小到0.6
-            else -> 0.6F  // 超出范围，默认返回0.6
-        }
-
-    Box(modifier = Modifier.size((totalWidth).dp, (totalHeight).dp)) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            drawCircle(
-                color1,
-                center = Offset((ballRadius + offsetX1) * density, ballRadius * density),
-                radius = ballRadius * density *scale1,
-                blendMode = BlendMode.ColorDodge
-            )
-
-            drawCircle(
-                color2,
-                center = Offset((3 * ballRadius + offsetX2) * density, ballRadius * density),
-                radius = ballRadius * density *scale2,
-                blendMode = BlendMode.Screen
-            )
-
-
+    val density = LocalDensity.current.density
+    val ballRadiusPx = ballRadius * density
+    Box(modifier = Modifier.size((baseLength * 2).dp, baseLength.dp)) {
+        Box(
+            modifier = Modifier
+                .width((ballRadius * 4).dp)
+                .height((ballRadius * 2).dp)
+                .clip(RectangleShape)
+                .align(Alignment.Center)
+        ) {
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                if (progress > 0) {
+                    drawBall(color1, (ballRadius + offsetX1), ballRadiusPx, scale1, blendMode)
+                }
+                drawBall(color2, (3 * ballRadius + offsetX2), ballRadiusPx, scale2, blendMode)
+                if (progress < 0) {
+                    drawBall(color1, (ballRadius + offsetX1), ballRadiusPx, scale1, blendMode)
+                }
+            }
         }
     }
+
 }
 
-private fun getPercent(progress:Float, minValue: Float, midValue: Float, maxValue: Float):Float{
-    val gapMinMid = (midValue-minValue)
-    val gapMidMax = (maxValue-midValue)
+private fun DrawScope.drawBall(
+    color: Color,
+    offsetX: Float,
+    ballRadiusPx: Float,
+    scale: Float,
+    blendMode: BlendMode
+) {
+    drawCircle(
+        color = color,
+        center = Offset(offsetX * density, ballRadiusPx),
+        radius = ballRadiusPx * scale,
+        blendMode = blendMode
+    )
+}
+
+
+private fun getPercent1(progress: Float, minValue: Float, midValue: Float, maxValue: Float): Float {
+    val gapMinMid = (midValue - minValue)
+    val gapMidMax = (maxValue - midValue)
     return when (progress) {
-        in -1F..-0.6F -> midValue - (progress + 1F) / 0.4F * gapMinMid  // [-1, -0.6] 百分比均匀减小到0.3
-        in -0.6F..-0.4F -> minValue  // [-0.6, -0.4] 百分比不变，固定为0.3
-        in -0.4F..0F -> minValue + (progress + 0.4F) / 0.4F * gapMinMid // [-0.4, 0] 百分比均匀增大到0.6
-        in 0F..0.4F -> midValue + progress / 0.4F * gapMidMax  // [0, 0.4] 百分比均匀增大到0.9
-        in 0.4F..0.6F ->maxValue  // [0.4, 0.6] 百分比不变，固定为0.9
-        in 0.6F..1F -> maxValue - (progress - midValue) / 0.4F * gapMidMax  // [0.6, 1] 百分比均匀减小到0.6
+        in -1F..-0.6F -> midValue + (progress + 1F) / 0.4F * gapMidMax  // [-1, -0.6] 百分比均匀增大到maxValue
+        in -0.6F..-0.4F -> maxValue  // [-0.6, -0.4] 百分比不变，固定为maxValue
+        in -0.4F..0F -> maxValue - (progress + 0.4F) / 0.4F * gapMidMax // [-0.4, 0] 百分比均匀减小到midValue
+        in 0F..0.4F -> midValue - progress / 0.4F * gapMinMid  // [0, 0.4] 百分比均匀减小到minValue
+        in 0.4F..0.6F -> minValue  // [0.4, 0.6] 百分比不变，固定为maxValue
+        in 0.6F..1F -> minValue + (progress - 0.6F) / 0.4F * gapMinMid  // [0.6, 1] 百分比均匀增大到midValue
         else -> 0.6F  // 超出范围，默认返回0.6
     }
 }
 
-@Preview(widthDp = 400, heightDp = 200)
+private fun getPercent2(progress: Float, minValue: Float, midValue: Float, maxValue: Float): Float {
+    val gapMinMid = (midValue - minValue)
+    val gapMidMax = (maxValue - midValue)
+    return when (progress) {
+        in -1F..-0.6F -> midValue - (progress + 1F) / 0.4F * gapMinMid  // [-1, -0.6] 百分比均匀减小到minValue
+        in -0.6F..-0.4F -> minValue  // [-0.6, -0.4] 百分比不变，固定为minValue
+        in -0.4F..0F -> minValue + (progress + 0.4F) / 0.4F * gapMinMid // [-0.4, 0] 百分比均匀增大到midValue
+        in 0F..0.4F -> midValue + progress / 0.4F * gapMidMax  // [0, 0.4] 百分比均匀增大到maxValue
+        in 0.4F..0.6F -> maxValue  // [0.4, 0.6] 百分比不变，固定为maxValue
+        in 0.6F..1F -> maxValue - (progress - 0.6F) / 0.4F * gapMidMax  // [0.6, 1] 百分比均匀减小到midValue
+        else -> 0.6F  // 超出范围，默认返回0.6
+    }
+}
+
+@Preview(widthDp = 600, heightDp = 600)
 @Composable
 private fun DoubleBallLoopPreview() {
     AppTheme {
-        DoubleBallLoop()
+        Box(Modifier.background(Color.White), contentAlignment = Alignment.Center) {
+            DoubleBallLoop(baseLength = 200F, 0.2F, Color.Cyan, Color.Red)
+        }
     }
 }

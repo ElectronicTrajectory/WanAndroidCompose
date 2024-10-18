@@ -23,6 +23,7 @@ fun EmptyScreen() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            DoubleBallLoop(50F,0.2f,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.primary)
             Text(text = stringResource(id = R.string.face_text), style = MaterialTheme.typography.displaySmall)
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = stringResource(id = R.string.wait_for_develop), style = MaterialTheme.typography.displaySmall)

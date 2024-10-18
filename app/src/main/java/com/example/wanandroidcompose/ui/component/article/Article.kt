@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,13 +41,15 @@ fun Article(modifier: Modifier, article: Article) {
                     style = MaterialTheme.typography.bodySmall
                 )
             }
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = article.title, color = contentColor,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyLarge
             )
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = article.type, color = contentColor,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodySmall
             )
         }
 
