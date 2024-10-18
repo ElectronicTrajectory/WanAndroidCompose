@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,7 @@ fun EmptyScreen() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            DoubleBallLoop(50F,0.2f,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.primary)
+            DoubleBallLoop(50F,0.2f, Color(0xFFFF2B55),Color(0xFF3A9FF8))
             Text(text = stringResource(id = R.string.face_text), style = MaterialTheme.typography.displaySmall)
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = stringResource(id = R.string.wait_for_develop), style = MaterialTheme.typography.displaySmall)

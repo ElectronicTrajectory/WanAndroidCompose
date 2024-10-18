@@ -42,7 +42,7 @@ fun DoubleBallLoop(
     color2: Color
 ) {
 
-    val millis = 1600
+    val millis = 1400
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val scaleAnimate by infiniteTransition.animateFloat(
         initialValue = 0F,
@@ -104,6 +104,13 @@ fun DoubleBallLoop(
 
 }
 
+/**
+ * @param color 圆球颜色
+ * @param offsetX X轴偏移量
+ * @param ballRadiusPx 圆球半径的像素值
+ * @param scale 缩放比例
+ * @param blendMode 混合模式
+ */
 private fun DrawScope.drawBall(
     color: Color,
     offsetX: Float,
@@ -153,7 +160,7 @@ private fun getPercent2(progress: Float, minValue: Float, midValue: Float, maxVa
 private fun DoubleBallLoopPreview() {
     AppTheme {
         Box(Modifier.background(Color.White), contentAlignment = Alignment.Center) {
-            DoubleBallLoop(baseLength = 200F, 0.2F, Color.Cyan, Color.Red)
+            DoubleBallLoop(baseLength = 200F, 0.2F, Color(0xFFFF2B55),Color(0xFF27FCFF))
         }
     }
 }
