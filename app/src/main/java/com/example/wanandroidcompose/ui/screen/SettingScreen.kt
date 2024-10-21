@@ -15,7 +15,7 @@ import com.example.wanandroidcompose.ui.component.common.EmptyScreen
 import com.example.wanandroidcompose.ui.component.common.Toolbar
 
 @Composable
-fun SettingScreen(navigate:(String)->Unit,onBack: () -> Unit){
+fun SettingScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
     val padding = LocalInnerPadding.current
     Column(
         Modifier
@@ -27,11 +27,9 @@ fun SettingScreen(navigate:(String)->Unit,onBack: () -> Unit){
             title = stringResource(id = R.string.mine_menu_setting),
             onBack = onBack
         )
-        Box(modifier = Modifier){
+        Box(modifier = Modifier) {
             EmptyScreen()
-            LazyColumn(Modifier.padding(horizontal = 12.dp)) {
-
-            }
+            LazyColumn(Modifier.padding(horizontal = 12.dp)) {}
         }
     }
 }
