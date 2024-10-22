@@ -13,16 +13,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.wanandroidcompose.common.toast
 import com.example.wanandroidcompose.common.topLevelScreens
 import com.example.wanandroidcompose.ui.AppNaviHost
 import com.example.wanandroidcompose.ui.AppNavigationBar
@@ -62,7 +59,9 @@ class MainActivity : ComponentActivity() {
                 val receiver = remember {
                     object : BroadcastReceiver() {
                         override fun onReceive(context: Context?, intent: Intent?) {
-                            navController.navigate(Screen.LoginScreen.route)
+                            navController.navigate(Screen.LoginScreen.route){
+                                launchSingleTop = true
+                            }
                         }
                     }
                 }

@@ -11,11 +11,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.wanandroidcompose.R
 import com.example.wanandroidcompose.common.MikuImageLink
-import com.example.wanandroidcompose.common.toast
 import com.example.wanandroidcompose.ui.activity.LocalInnerPadding
 import com.example.wanandroidcompose.ui.component.common.BarButton
 import com.example.wanandroidcompose.ui.component.common.KeyValueItem
@@ -34,11 +34,15 @@ import com.example.wanandroidcompose.ui.viewmodel.UserViewModel
 
 @Composable
 fun UserInfoScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
+    val isLoaded = rememberSaveable { mutableStateOf(false) }
     val padding = LocalInnerPadding.current
     val viewmodel: UserViewModel = hiltViewModel()
     val userInfo by viewmodel.detailUserInfo.collectAsState()
     LaunchedEffect(Unit) {
-        viewmodel.getDetailUserInfo()
+        if (!isLoaded.value) {
+            isLoaded.value = true
+            viewmodel.getDetailUserInfo()
+        }
     }
 
     Column(
@@ -70,11 +74,41 @@ fun UserInfoScreen(navigate: (String) -> Unit, onBack: () -> Unit) {
             .padding(horizontal = 12.dp)
 
         LazyColumn {
-            item {  KeyValueItem(modifier, stringResource(id = R.string.user_name),userInfo?.userInfo?.username.toString()) }
-            item {  KeyValueItem(modifier, stringResource(id = R.string.user_email),userInfo?.userInfo?.email.toString()) }
-            item {  KeyValueItem(modifier, stringResource(id = R.string.user_rank),userInfo?.coinInfo?.rank.toString()) }
-            item {  KeyValueItem(modifier, stringResource(id = R.string.user_level),userInfo?.coinInfo?.level.toString()) }
-            item {  KeyValueItem(modifier, stringResource(id = R.string.user_coin),userInfo?.coinInfo?.coinCount.toString()) }
+            item {
+                KeyValueItem(
+                    modifier,
+                    stringResource(id = R.string.user_name),
+                    userInfo?.userInfo?.username.toString()
+                )
+            }
+            item {
+                KeyValueItem(
+                    modifier,
+                    stringResource(id = R.string.user_email),
+                    userInfo?.userInfo?.email.toString()
+                )
+            }
+            item {
+                KeyValueItem(
+                    modifier,
+                    stringResource(id = R.string.user_rank),
+                    userInfo?.coinInfo?.rank.toString()
+                )
+            }
+            item {
+                KeyValueItem(
+                    modifier,
+                    stringResource(id = R.string.user_level),
+                    userInfo?.coinInfo?.level.toString()
+                )
+            }
+            item {
+                KeyValueItem(
+                    modifier,
+                    stringResource(id = R.string.user_coin),
+                    userInfo?.coinInfo?.coinCount.toString()
+                )
+            }
             item { Spacer(modifier = Modifier.height(12.dp)) }
             item {
                 BarButton(
