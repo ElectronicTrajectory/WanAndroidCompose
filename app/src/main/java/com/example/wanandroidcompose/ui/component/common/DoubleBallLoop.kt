@@ -27,22 +27,24 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wanandroidcompose.ui.theme.AppTheme
+import kotlin.math.PI
+import kotlin.math.sin
 
 /**
  * @param baseLength 基准长度,用于计算圆形的半径,组件的宽高
  * @param scaleRangeStep 用于计算圆球的缩放程度
  * @param color1 球1的颜色
  * @param color2 球2的颜色
+ * @param millis 走完一个循环需要的时间
  */
 @Composable
 fun DoubleBallLoop(
     baseLength: Float,
     scaleRangeStep: Float,
     color1: Color,
-    color2: Color
+    color2: Color,
+    millis: Int = 1000
 ) {
-
-    val millis = 1400
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val scaleAnimate by infiniteTransition.animateFloat(
         initialValue = 0F,
@@ -61,9 +63,6 @@ fun DoubleBallLoop(
         ), label = ""
     )
 
-    //调整 progress 范围为 [-1,1]
-    val progress = scaleAnimate - 1F
-
     val ballRadius = baseLength / 2
 
     val translateFactor = ballRadius * 2
@@ -71,17 +70,17 @@ fun DoubleBallLoop(
     val offsetX1 = translateFactor * translateAnimate
     val offsetX2 = translateFactor * translateAnimate * -1
 
-    val maxScaleValue = 1F
-    val midScaleValue = maxScaleValue - scaleRangeStep
-    val minScaleValue = maxScaleValue - scaleRangeStep * 2
+    val baseScale = 1 - scaleRangeStep
+    val scaleOffset = getScaleOffset(scaleAnimate, scaleRangeStep)
 
-    val scale1 = getPercent1(progress, minScaleValue, midScaleValue, maxScaleValue)
-    val scale2 = getPercent2(progress, minScaleValue, midScaleValue, maxScaleValue)
+    val scale1 = baseScale + scaleOffset
+    val scale2 = baseScale - scaleOffset
 
     val blendMode = BlendMode.Multiply
 
     val density = LocalDensity.current.density
     val ballRadiusPx = ballRadius * density
+
     Box(modifier = Modifier.size((baseLength * 2).dp, baseLength.dp)) {
         Box(
             modifier = Modifier
@@ -91,11 +90,11 @@ fun DoubleBallLoop(
                 .align(Alignment.Center)
         ) {
             Canvas(modifier = Modifier.fillMaxSize()) {
-                if (progress > 0) {
+                if (scaleAnimate >= 1) {
                     drawBall(color1, (ballRadius + offsetX1), ballRadiusPx, scale1, blendMode)
                 }
                 drawBall(color2, (3 * ballRadius + offsetX2), ballRadiusPx, scale2, blendMode)
-                if (progress < 0) {
+                if (scaleAnimate < 1) {
                     drawBall(color1, (ballRadius + offsetX1), ballRadiusPx, scale1, blendMode)
                 }
             }
@@ -124,6 +123,11 @@ private fun DrawScope.drawBall(
         radius = ballRadiusPx * scale,
         blendMode = blendMode
     )
+}
+
+private fun getScaleOffset(progress: Float, step: Float): Float {
+    require(step >= -1 && step <= 1) { throw Exception("step must in [-1,1]") }
+    return sin(progress * PI).toFloat() * step
 }
 
 
@@ -160,7 +164,7 @@ private fun getPercent2(progress: Float, minValue: Float, midValue: Float, maxVa
 private fun DoubleBallLoopPreview() {
     AppTheme {
         Box(Modifier.background(Color.White), contentAlignment = Alignment.Center) {
-            DoubleBallLoop(baseLength = 200F, 0.2F, Color(0xFFFF2B55),Color(0xFF27FCFF))
+            DoubleBallLoop(baseLength = 200F, 0.2F, Color(0xFFFF2B55), Color(0xFF27FCFF),1800)
         }
     }
 }
