@@ -1,5 +1,6 @@
 package com.example.wanandroidcompose.ui.component.common
 
+import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -58,7 +59,7 @@ fun DoubleBallLoop(
         initialValue = 0F,
         targetValue = 1F,
         animationSpec = infiniteRepeatable(
-            animation = tween(millis / 2, easing = LinearEasing),
+            animation = tween(millis / 2, easing = CubicBezierEasing(0.4f, 0.0f, 0.6f, 1.0f)),
             repeatMode = RepeatMode.Reverse
         ), label = ""
     )
