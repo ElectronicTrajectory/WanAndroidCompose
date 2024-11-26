@@ -2,9 +2,11 @@ package com.example.wanandroidcompose.ui.component.common
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.os.Build
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
@@ -21,9 +23,12 @@ fun WanWebView(modifier: Modifier, url: String, webViewViewModel: WebViewViewMod
         WebView(context).apply {
             settings.apply {
                 javaScriptEnabled = true
+                blockNetworkImage = false
                 domStorageEnabled = true  // 启用 DOM 存储
                 loadWithOverviewMode = true  // 适应屏幕大小
                 useWideViewPort = true  // 启用广泛视图模式
+                settings.mixedContentMode =
+                    WebSettings.MIXED_CONTENT_ALWAYS_ALLOW//webView从5.0后开始不允许混合模式，https中不可以加载http资源，需要设置开启
             }
 
             webViewClient = object : WebViewClient() {
