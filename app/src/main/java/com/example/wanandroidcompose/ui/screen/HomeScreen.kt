@@ -1,5 +1,9 @@
 package com.example.wanandroidcompose.ui.screen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +20,7 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +59,11 @@ fun HomeScreen(navigate: (String) -> Unit) {
 
     val lazyListState = rememberLazyListState()
 
+    val firstVisibleItemIndex by remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex
+        }
+    }
     Box(
         modifier = Modifier
             .pullRefresh(pullRefreshState)
@@ -84,32 +94,40 @@ fun HomeScreen(navigate: (String) -> Unit) {
                     when {
                         loadState.append is LoadState.Loading -> {
                             // 分页加载更多时的加载视图
-                             item { LoadMore(LoadMoreState.LOADING) }
+                            item { LoadMore(LoadMoreState.LOADING) }
                         }
 
                         loadState.append is LoadState.Error -> {
                             // 加载更多时发生错误
-                             item { LoadMore(LoadMoreState.FAIL) }
+                            item { LoadMore(LoadMoreState.FAIL) }
                         }
                     }
                 }
             }
 
-            if (lazyListState.firstVisibleItemIndex != 0) {
+
+            AnimatedVisibility(
+                visible = firstVisibleItemIndex != 0,
+                enter = scaleIn(),
+                exit = scaleOut(),
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 12.dp, bottom = 12.dp),
+            ) {
                 FloatButton(
                     modifier = Modifier
-                        .align(Alignment.BottomEnd)
                         .clickableWithoutRipple {
                             coroutineScope.launch {
                                 lazyListState.animateScrollToItem(0)
                             }
-                        }
-                        .padding(end = 12.dp, bottom = 12.dp),
+                        },
                     icon = Icons.Rounded.ArrowUpward,
                     iconColor = MaterialTheme.colorScheme.onSecondary,
                     bgColor = MaterialTheme.colorScheme.secondary
                 )
             }
+
+
 
             lazyPagingItems.apply {
                 when {

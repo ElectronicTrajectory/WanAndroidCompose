@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -42,9 +43,9 @@ fun AppNavigationBar(modifier: Modifier, navController: NavHostController, curre
                     )
                 },
                 label = {
-                    Text(text = stringResource(id = screen.title))
+                    Text(text = stringResource(id = screen.title), style = MaterialTheme.typography.bodySmall)
                 },
-                alwaysShowLabel = false
+                alwaysShowLabel = true
             )
         }
     }
